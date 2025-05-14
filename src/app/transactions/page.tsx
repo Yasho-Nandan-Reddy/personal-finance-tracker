@@ -1,9 +1,9 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '../api/auth/route';
 import { prisma } from '@/lib/prisma';
 import AddTransactionForm from '@/components/AddTransactionForm';
-import { Transaction } from '@/types/transaction';
+import { Transaction, TransactionType } from '@/types/transaction';
 
 export default async function TransactionsPage() {
   const session = await getServerSession(authOptions);
@@ -47,7 +47,7 @@ export default async function TransactionsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {transactions.map((transaction: Transaction) => (
+              {transactions.map((transaction) => (
                 <tr key={transaction.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(transaction.date).toLocaleDateString()}
@@ -61,7 +61,7 @@ export default async function TransactionsPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <span
                       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        transaction.type === 'INCOME'
+                        (transaction.type as TransactionType) === 'INCOME'
                           ? 'bg-green-100 text-green-800'
                           : 'bg-red-100 text-red-800'
                       }`}

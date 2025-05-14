@@ -1,6 +1,6 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/route';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import AddTransactionForm from '@/components/AddTransactionForm';
 import { Transaction, TransactionType } from '@/types/transaction';
